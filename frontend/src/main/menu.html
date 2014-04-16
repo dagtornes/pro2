@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<h1>Mine tilganger</h1>
+		<ul class="nav nav-pills nav-stacked">
+			<li ng-repeat="item in menuitems">
+				<a href="{{item.url}}">
+					<span class="badge pull-right" ng-if='item.cnt > 0'>{{item.cnt}}</span>
+					{{item.name}}
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
