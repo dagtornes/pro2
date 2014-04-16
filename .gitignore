@@ -1,3 +1,8 @@
 frontend/bower_components/*
 frontend/node_modules/*
 frontend/build/*
+
+backend/bin/*
+backend/include/*
+backend/lib/*
+backend/.Python
