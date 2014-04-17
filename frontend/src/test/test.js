@@ -6,5 +6,5 @@ describe ('Pro2AppController', function() {
 		var ctrl = $controller('Pro2AppController', {$scope: scope});
 
 		expect(scope.currentUser.role).toBe('admin');
-	}))
-})
+	}));
+});

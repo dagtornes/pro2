@@ -26,6 +26,7 @@
     "karma-jasmine": "~0.1.5",
     "grunt-protractor-runner": "~0.2.4",
     "grunt-newer": "~0.7.0",
-    "grunt-contrib-jshint": "~0.6.5"
+    "grunt-contrib-jshint": "~0.6.5",
+    "jshint-stylish": "~0.1.5"
   }
 }
