@@ -9,3 +9,4 @@ backend/.Python
 
 *.pyc
 *.pyo
+*.sqlite3
