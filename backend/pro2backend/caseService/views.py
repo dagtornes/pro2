@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 
 from rest_framework import permissions
+from rest_framework.response import Response
 from rest_framework import viewsets
-from rest_framework.decorators import link
+from rest_framework.decorators import api_view
 
 from caseService.models import Case
 from caseService.serializers import CaseSerializer
@@ -19,16 +20,15 @@ class CaseViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def pre_save(self, obj):
-        obj.owner = self.request.user   
+        obj.owner = self.request.user
 
-    @link()
-    def by_user(self, request):
-        """
-        Gets cases by user
-        """
 
-        cases = Case.get_by_user(request.user)
-        serializer = CaseSerializer(data=cases)
+@api_view(['GET'])
+def step_for_user(request):
+	"""
+	Return a map of step -> count for the given users cases
+	"""
 
-        if serializer.is_valid():
-            return Response(serializer.data)
+	step_map = Case.count_by_step(request.user)
+	return Response(step_map)
+		

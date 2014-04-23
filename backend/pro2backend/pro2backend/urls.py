@@ -12,11 +12,8 @@ router.register(r'users', views.UserViewSet)
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'pro2backend.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
+	url(r'^api/cases/step-for-user', views.step_for_user, name='step-for-user'),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
