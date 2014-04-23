@@ -6,22 +6,25 @@ caseControllers.controller('casesController', ['$scope',
     }
 ]);
 
-caseControllers.controller('distributeController', ['$scope', 'caseService',
-    function($scope, Case) {
-        $scope.title = 'Fordele oppgaver';
+caseControllers.controller('distributeController', ['$scope', 'caseService', '$location', '$state',
+    function($scope, Case, $location, $state) {
+        $scope.title = $state.current.data.title;
 
-        $scope.cases = Case.getCasesByStep("distribute");
+        $scope.cases = Case.getCasesByStep($state.current.data.step);
 
-        $scope.getNextCase = Case.getNextCase;
+        $scope.getNextCase = function () {
+        	caze = Case.getNextCase();
+        	console.log("Getting next case" + caze.caseid);
+        	$location.path('view/' + caze.caseid);
+		};
+
         $scope.hasNextCase = Case.hasNextCase;
     }
 ]);
 
-caseControllers.controller('caseController', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
-        $scope.caze = {
-            caseId: $routeParams.caseId
-        };
+caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseService',
+    function($scope, $stateParams, Case) {
+        $scope.caze = Case.getCaseById($stateParams.caseId);
     }
 ]);
 
@@ -46,8 +49,8 @@ caseControllers.controller('menuController', ['$scope', '$location', 'userServic
     function($scope, $location, User, Case) {
         $scope.menuitems = [
             {name: 'Fordele oppgaver', url:'#/distribute', cnt: Case.countByStep("distribute")},
-            {name: 'Registrere reiseregning', url:'#/register', cnt: 2},
-            {name: 'Vedtak', url:'#/decision', cnt: 1},
+            {name: 'Registrere reiseregning', url:'#/register', cnt: Case.countByStep('register')},
+            {name: 'Vedtak', url:'#/decision', cnt: Case.countByStep('decision')},
             {name: 'Administrer', url: '', cnt: 0}
         ];
     }
@@ -99,12 +102,37 @@ caseControllers.factory('caseService', function() {
     };
 
     service.getNextCase = function() {
-        return service.cases.shift();
+        return service.cases[0];
     };
 
     service.hasNextCase = function() {
         return service.cases.length !== 0;
     };
+
+    service.getCaseById = function(id) {
+    	for (var i = 0; i < service.cases.length; ++i) {
+    		if (service.cases[i].caseid == id) {
+    			return service.cases[i];
+			}
+		}
+	};
+
+	service.next_step = function(caze) {
+		switch (caze.step) {
+			case 'distribute':
+				return 'register';
+			case 'register':
+				return 'decision';
+			case 'decision':
+				return 'completed';
+		}
+	};
+
+	service.advance = function(caze) {
+		caze.step = service.next_step(caze);
+		return caze;
+	};
+
 
     return service;
 });
