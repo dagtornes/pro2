@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                 expand: true
             },
             build: {
-                cwd: 'src/main',
+                cwd: 'src',
                 src: ['**', '!**/less/*.less'],
                 dest: 'build',
                 expand: true
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             options: {
                 reporter: require('jshint-stylish')
             },
-            all: ['Gruntfile.js', 'src/main/js/**/*.js', 'src/test/**/*.js']
+            all: ['Gruntfile.js', 'src/js/**/*.js']
         },
         clean: {
             build: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
                     cleancss: true
                 },
                 files: {
-                    'build/css/app.min.css': 'src/main/less/bootstrap.less'
+                    'build/css/app.min.css': 'src/less/bootstrap.less'
                 }
             }
         },
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
                 options: {
                     files: [
                         'build/angular/angular.min.js',
-                        'src/main/js/*.js',
+                        'src/js/*.js',
                         'src/test/**/*.js'
                     ],
                     browsers: ['Chrome'],
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         watch: {
             copy: {
-                files: ['src/main/**'],
+                files: ['src/**'],
                 tasks: ['build']
             },
             tests: {
