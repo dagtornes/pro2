@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                   'angular-route/angular-route.min.js',
                   'angular-route/angular-route.min.js.map',
                   'angular-bootstrap/ui-bootstrap.min.js',
-        		  'angular-ui-router/release/angular-ui-router.min.js'
+				  'angular-ui-router/release/angular-ui-router.min.js'
                 ],
                 dest: 'build',
                 expand: true
@@ -36,7 +36,6 @@ module.exports = function(grunt) {
         },
         less: {
             build: {
-                options: {
                     cleancss: true
                 },
                 files: {
@@ -50,7 +49,6 @@ module.exports = function(grunt) {
                     files: [
                         'build/angular/angular.min.js',
                         'src/js/*.js',
-                        'src/test/**/*.js'
                     ],
                     browsers: ['Chrome'],
                     plugins : [

@@ -1,8 +1,8 @@
 var caseControllers = angular.module('caseControllers', []);
 
-caseControllers.controller('casesController', ['$scope',
-    function($scope) {
-        $scope.cases = ['12345', '12346'];
+caseControllers.controller('casesController', ['$scope', 'caseService',
+    function($scope, Case) {
+        $scope.cases = Case.getCases();
     }
 ]);
 
@@ -13,9 +13,9 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
         $scope.cases = Case.getCasesByStep($state.current.data.step);
 
         $scope.getNextCase = function () {
-        	caze = Case.getNextCase();
-        	console.log("Getting next case" + caze.caseid);
-        	$location.path('view/' + caze.caseid);
+			caze = Case.getNextCase();
+			console.log("Getting next case" + caze.caseid);
+			$location.path('view/' + caze.caseid);
 		};
 
         $scope.hasNextCase = Case.hasNextCase;
@@ -25,23 +25,6 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
 caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseService',
     function($scope, $stateParams, Case) {
         $scope.caze = Case.getCaseById($stateParams.caseId);
-    }
-]);
-
-caseControllers.controller('navbarController', ['$scope', 'userService',
-    function($scope, User) {
-        $scope.logout = function() {
-            User.logout();
-            $scope.currentUser = User.currentUser;
-        };
-        
-        $scope.$on('Login', function (event) {
-            $scope.currentUser = User.currentUser;
-        });
-
-        $scope.$on('Logout', function (event) {
-            $scope.currentUser = User.currentUser;
-        });
     }
 ]);
 
@@ -110,9 +93,9 @@ caseControllers.factory('caseService', function() {
     };
 
     service.getCaseById = function(id) {
-    	for (var i = 0; i < service.cases.length; ++i) {
-    		if (service.cases[i].caseid == id) {
-    			return service.cases[i];
+		for (var i = 0; i < service.cases.length; ++i) {
+			if (service.cases[i].caseid == id) {
+				return service.cases[i];
 			}
 		}
 	};

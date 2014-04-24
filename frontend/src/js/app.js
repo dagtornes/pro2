@@ -3,7 +3,8 @@
 var pro2app = angular.module('pro2app', [
     'ui.bootstrap',
     'ui.router',
-    'caseControllers'
+    'caseControllers',
+    'navbarController'
 ]);
 
 pro2app.config(['$stateProvider',
