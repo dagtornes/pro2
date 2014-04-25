@@ -4,14 +4,15 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Saksid</th> <th>Saksbehandler</th> <th>Kontor</th>
+					<th>Saksid</th> <th>Saksbehandler</th> <th>Kontor</th> <th>Steg</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="caze in cases">
-					<a href="/view/{{caze.caseid}}">
-						<td>{{caze.caseid}}</td> <td>{{caze.owner}}</td> <td>{{caze.office}}</td>
-					</a>
+					<td>
+						<a href="#/view/{{caze.caseid}}">{{caze.caseid}}</a>
+					</td>
+					<td>{{caze.owner}}</td> <td>{{caze.office}}</td> <td>{{caze.step}}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                   'angular-route/angular-route.min.js',
                   'angular-route/angular-route.min.js.map',
                   'angular-bootstrap/ui-bootstrap.min.js',
-				  'angular-ui-router/release/angular-ui-router.min.js'
+                  'angular-ui-router/release/angular-ui-router.min.js'
                 ],
                 dest: 'build',
                 expand: true
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             options: {
                 reporter: require('jshint-stylish')
             },
-            all: ['Gruntfile.js', 'src/js/**/*.js']
+            all: ['Gruntfile.js', 'src/**/*.js']
         },
         clean: {
             build: {
@@ -36,12 +36,11 @@ module.exports = function(grunt) {
         },
         less: {
             build: {
-                    cleancss: true
-                },
-                files: {
-                    'build/css/app.min.css': 'src/less/bootstrap.less'
-                }
-            }
+                cleancss: true,
+            	files: {
+               	    'build/css/app.min.css': 'src/less/bootstrap.less'
+            	}
+			}
         },
         karma: {
             unit: {
@@ -90,6 +89,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask('test', ['karma']);
-    grunt.registerTask('build', ['clean', 'copy', 'newer:less']);
+    grunt.registerTask('build', ['copy', 'less']);
     grunt.registerTask('default', ['build', 'connect', 'watch']);
 };

@@ -1,14 +1,16 @@
-'use strict';
-
 var pro2app = angular.module('pro2app', [
+	'ngRoute',
     'ui.bootstrap',
     'ui.router',
     'caseControllers',
+    'caseServices',
     'navbarController'
 ]);
 
-pro2app.config(['$stateProvider',
-    function($stateProvider) {
+pro2app.config(['$routeProvider', '$stateProvider',
+    function($routeProvider, $stateProvider) {
+    	$routeProvider.otherwise({redirectTo: "/menu"});
+
         $stateProvider
           .state('login', {
               url: "/login",
@@ -39,6 +41,15 @@ pro2app.config(['$stateProvider',
                   step: 'distribute'
               }
           })
+		  .state('decision', {
+			  url: '/decision',
+		  	  templateUrl: 'distribute.html',
+		  	  controller: 'distributeController',
+		  	  data: {
+				  title: 'Fatte vedtak',
+		  		  step: 'decision'
+			  }
+		  })
           .state('register', {
               url: '/register',
               templateUrl: 'distribute.html',
