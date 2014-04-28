@@ -34,11 +34,6 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
             $location.path('view/' + caze.caseid);
         };
 
-        $scope.someCallback = function($event) {
-            alert("FOOOOO");
-            $event.preventDefault();
-        };
-
         $scope.hasNextCase = function() {
             return $scope.cases.length !== 0;
         };
