@@ -8,7 +8,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="caze in cases">
+				<tr ng-repeat="caze in cases" ng-click="view_case(caze)">
 					<td>
 						<a href="#/view/{{caze.caseid}}">{{caze.caseid}}</a>
 					</td>
