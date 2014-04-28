@@ -1,4 +1,4 @@
-var caseControllers = angular.module('caseControllers', []);
+var caseControllers = angular.module('caseControllers', ['ui.utils']);
 
 caseControllers.controller('casesController', ['$scope', '$location', 'caseService',
     function($scope, $location, Case) {
@@ -16,10 +16,19 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
 
         $scope.cases = Case.getCasesByStep($state.current.data.step);
 
+        $scope.getCases = function() {
+            return Case.getCasesByStep($state.current.data.step);
+        };
+        
         $scope.getNextCase = function () {
             caze = $scope.cases.shift();
             console.log("Getting next case" + caze.caseid);
             $location.path('view/' + caze.caseid);
+        };
+
+        $scope.someCallback = function($event) {
+            alert("FOOOOO");
+            $event.preventDefault();
         };
 
         $scope.hasNextCase = function() {

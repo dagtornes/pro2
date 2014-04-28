@@ -2,6 +2,7 @@ var pro2app = angular.module('pro2app', [
     'ngRoute',
     'ui.bootstrap',
     'ui.router',
+    'ui.keypress',
     'caseControllers',
     'caseServices',
     'navbarController'
