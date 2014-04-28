@@ -37,10 +37,10 @@ module.exports = function(grunt) {
         less: {
             build: {
                 cleancss: true,
-            	files: {
-               	    'build/css/app.min.css': 'src/less/bootstrap.less'
-            	}
-			}
+                files: {
+                    'build/css/app.min.css': 'src/less/bootstrap.less'
+                }
+            }
         },
         karma: {
             unit: {

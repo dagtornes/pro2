@@ -1,5 +1,5 @@
 var pro2app = angular.module('pro2app', [
-	'ngRoute',
+    'ngRoute',
     'ui.bootstrap',
     'ui.router',
     'caseControllers',
@@ -9,7 +9,7 @@ var pro2app = angular.module('pro2app', [
 
 pro2app.config(['$routeProvider', '$stateProvider',
     function($routeProvider, $stateProvider) {
-    	$routeProvider.otherwise({redirectTo: "/menu"});
+        $routeProvider.otherwise({redirectTo: "/menu"});
 
         $stateProvider
           .state('login', {
@@ -41,15 +41,15 @@ pro2app.config(['$routeProvider', '$stateProvider',
                   step: 'distribute'
               }
           })
-		  .state('decision', {
-			  url: '/decision',
-		  	  templateUrl: 'distribute.html',
-		  	  controller: 'distributeController',
-		  	  data: {
-				  title: 'Fatte vedtak',
-		  		  step: 'decision'
-			  }
-		  })
+          .state('decision', {
+              url: '/decision',
+              templateUrl: 'distribute.html',
+              controller: 'distributeController',
+              data: {
+                  title: 'Fatte vedtak',
+                  step: 'decision'
+              }
+          })
           .state('register', {
               url: '/register',
               templateUrl: 'distribute.html',

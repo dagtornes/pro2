@@ -1,8 +1,12 @@
 var caseControllers = angular.module('caseControllers', []);
 
-caseControllers.controller('casesController', ['$scope', 'caseService',
-    function($scope, Case) {
+caseControllers.controller('casesController', ['$scope', '$location', 'caseService',
+    function($scope, $location, Case) {
         $scope.cases = Case.getCases();
+
+        $scope.view_case = function(caze) {
+            $location.path('view/' + caze.caseid);
+        };
     }
 ]);
 
@@ -19,8 +23,8 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
         };
 
         $scope.hasNextCase = function() {
-        	return $scope.cases.length !== 0;
-		};
+            return $scope.cases.length !== 0;
+        };
     }
 ]);
 
@@ -29,19 +33,19 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseSer
         $scope.caze = Case.getCaseById($stateParams.caseId);
 
         $scope.advance = function() {
-        	Case.advance($scope.caze);
-			$scope.next_step = Case.next_step($scope.caze);
-			$scope.prev_step = Case.prev_step($scope.caze);
-		};
+            Case.advance($scope.caze);
+            $scope.next_step = Case.next_step($scope.caze);
+            $scope.prev_step = Case.prev_step($scope.caze);
+        };
 
-		$scope.prev = function() {
-			Case.prev($scope.caze);
-			$scope.next_step = Case.next_step($scope.caze);
-			$scope.prev_step = Case.prev_step($scope.caze);
-		};
+        $scope.prev = function() {
+            Case.prev($scope.caze);
+            $scope.next_step = Case.next_step($scope.caze);
+            $scope.prev_step = Case.prev_step($scope.caze);
+        };
 
-		$scope.next_step = Case.next_step($scope.caze);
-		$scope.prev_step = Case.prev_step($scope.caze);
+        $scope.next_step = Case.next_step($scope.caze);
+        $scope.prev_step = Case.prev_step($scope.caze);
     }
 ]);
 
