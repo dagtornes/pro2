@@ -14,9 +14,9 @@
                 </tr>
             </tbody>
         </table>
-		<button tabindex="0" type="button" class="btn btn-default pull-right"
+		<button type="button" class="btn btn-default pull-right"
 		    ng-click="getNextCase()" ng-if="hasNextCase()"
-		    ui-keyup="{'left':'someCallback($event)'}">Hent neste</button>
+		    >Hent neste</button>
         <div class="alert alert-danger" ng-if="!hasNextCase()">Ingen saker</div>
     </div>
 </div>

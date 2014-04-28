@@ -1,4 +1,4 @@
-var caseControllers = angular.module('caseControllers', ['ui.utils']);
+var caseControllers = angular.module('caseControllers', []);
 
 caseControllers.controller('casesController', ['$scope', '$location', 'caseService',
     function($scope, $location, Case) {
@@ -10,11 +10,19 @@ caseControllers.controller('casesController', ['$scope', '$location', 'caseServi
     }
 ]);
 
-caseControllers.controller('distributeController', ['$scope', 'caseService', '$location', '$state',
-    function($scope, Case, $location, $state) {
+caseControllers.controller('distributeController', ['$scope', 'caseService', '$location', '$state', 'hotkeys',
+    function($scope, Case, $location, $state, hotkeys) {
         $scope.title = $state.current.data.title;
 
         $scope.cases = Case.getCasesByStep($state.current.data.step);
+
+        hotkeys.add({
+            combo: 'enter',
+            description: 'Hent neste sak',
+            callback: function() {
+                $scope.getNextCase();
+            }
+        });
 
         $scope.getCases = function() {
             return Case.getCasesByStep($state.current.data.step);

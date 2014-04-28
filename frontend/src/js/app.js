@@ -2,7 +2,7 @@ var pro2app = angular.module('pro2app', [
     'ngRoute',
     'ui.bootstrap',
     'ui.router',
-    'ui.keypress',
+    'cfp.hotkeys',
     'caseControllers',
     'caseServices',
     'navbarController'
@@ -60,5 +60,17 @@ pro2app.config(['$routeProvider', '$stateProvider',
                   step: 'register'
               }
           });
+    }
+]);
+
+pro2app.run(['hotkeys', '$location',
+    function(hotkeys) {
+        hotkeys.add({
+            combo: 'ctrl+alt+h',
+            description: 'Gå til startsiden',
+            callback: function() {
+                $location.path('/menu');
+            }
+        });
     }
 ]);

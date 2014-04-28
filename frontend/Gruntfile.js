@@ -12,7 +12,9 @@ module.exports = function(grunt) {
                   'angular-route/angular-route.min.js.map',
                   'angular-ui-utils/ui-utils.min.js',
                   'angular-bootstrap/ui-bootstrap.min.js',
-                  'angular-ui-router/release/angular-ui-router.min.js'
+                  'angular-ui-router/release/angular-ui-router.min.js',
+                  'angular-hotkeys/build/hotkeys.min.js',
+                  'angular-hotkeys/build/hotkeys.min.css'
                 ],
                 dest: 'build',
                 expand: true
