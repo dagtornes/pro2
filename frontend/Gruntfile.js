@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        
         copy: {
             deps: {
                 cwd: 'bower_components/',
@@ -79,6 +81,9 @@ module.exports = function(grunt) {
                     base: 'build'
                 }
             }
+        },
+        'git-describe': {
+            me: {}
         }
     });
 
@@ -90,7 +95,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-git-describe');
 
+    grunt.registerTask('save-revision', function() {
+        grunt.event.once('git-describe', function(revision) {
+            grunt.option('meta.revision', revision);
+        });
+        grunt.task.run('git-describe');
+    });
+    grunt.registerTask('tag-revision', 'Write version and revision data to file', function() {
+        grunt.task.requires('git-describe');
+        grunt.file.write('build/version.json', JSON.stringify({
+            version: grunt.config('pkg.version'),
+            revision: grunt.option('meta.revision')[3],
+            date: grunt.template.today()
+        }));
+    });
+    grunt.registerTask('version', ['save-revision', 'tag-revision']);
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('build', ['copy', 'less']);
     grunt.registerTask('default', ['build', 'connect', 'watch']);

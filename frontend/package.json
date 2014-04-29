@@ -1,7 +1,8 @@
 {
-  "name": "grunt_tutorial",
-  "description": "An example of how to set up Grunt for web development.",
-  "author": "Landon Schropp (http://landonschropp.com)",
+  "name": "pro2",
+  "description": "Rewrite of the unpopular app PRO.",
+  "author": "Dag Øyvind Tornes",
+  "version": "0.0.1",
   "dependencies": {
     "grunt": "0.x.x",
     "grunt-autoprefixer": "0.2.x",
@@ -26,6 +27,7 @@
     "grunt-protractor-runner": "~0.2.4",
     "grunt-newer": "~0.7.0",
     "grunt-contrib-jshint": "~0.6.5",
-    "jshint-stylish": "~0.1.5"
+    "jshint-stylish": "~0.1.5",
+    "grunt-git-describe": "~2.3.2"
   }
 }
