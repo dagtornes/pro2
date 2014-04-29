@@ -1,35 +1,35 @@
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation" ng-controller="navbarController">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">PRO2 - Pasientreiseoppgjør</span>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">PRO2 - Pasientreiseoppgjør</span>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapsible">
+            <ul class="nav navbar-nav navbar-right">
+                <li><p class="navbar-text"><small>1.2.3 git-sha</small></p></li>
+                <li><a href="#/case" tabindex="-1"><span class="glyphicon glyphicon-search" /> Saker</a></li>
+                <li><a href="#/menu" tabindex="-1"><span class="glyphicon glyphicon-home" /> Startside</a></li>
+                <!-- Has user -->
+                <li class="dropdown" ng-if='currentUser !== undefined'>
+                    <a href="#" tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.name}}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li class="disabled"><a href="#">Rolle: {{ currentUser.role }}</a></li>
+                        <li><a href="#">Bytt passord</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#never" ng-click="logout()">Logg ut</a></li>
+                    </ul>
+                </li>
+                <!-- No user -->
+                <li ng-if='currentUser == undefined'>
+                    <a href="#/login" tabindex="-1">Logg inn</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" id="navbar-collapsible">
-      <ul class="nav navbar-nav navbar-right">
-        <li><p class="navbar-text"><small>1.2.3 git-sha</small></p></li>
-        <li><a href="#/case"><span class="glyphicon glyphicon-search" /> Saker</a></li>
-        <li><a href="#/menu"><span class="glyphicon glyphicon-home" /> Startside</a></li>
-        <!-- Has user -->
-        <li class="dropdown" ng-if='currentUser !== undefined'>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.name}}<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li class="disabled"><a href="#">Rolle: {{ currentUser.role }}</a></li>
-            <li><a href="#">Bytt passord</a></li>
-            <li class="divider"></li>
-            <li><a href="#never" ng-click="logout()">Logg ut</a></li>
-          </ul>
-        </li>
-        <!-- No user -->
-        <li ng-if='currentUser == undefined'>
-          <a href="#/login">Logg inn</a>
-        </li>
-      </ul>
-    </div>
-  </div>
 </nav>
