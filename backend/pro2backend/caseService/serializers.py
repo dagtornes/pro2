@@ -8,7 +8,7 @@ class CaseSerializer(serializers.ModelSerializer):
     class Meta:
         depth = 1
         model = Case
-        fields = ('created', 'owner', 'step')
+        fields = ('id', 'created', 'owner', 'step')
 
 class UserSerializer(serializers.ModelSerializer):
     cases = serializers.PrimaryKeyRelatedField(many=True)
