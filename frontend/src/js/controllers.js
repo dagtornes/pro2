@@ -30,7 +30,6 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
         
         $scope.getNextCase = function () {
             caze = $scope.cases.shift();
-            console.log("Getting next case" + caze.caseid);
             $location.path('view/' + caze.caseid);
         };
 
