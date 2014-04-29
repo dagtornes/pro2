@@ -1,4 +1,4 @@
-var pro2app = angular.module('pro2app', [
+angular.module('pro2app', [
     'ngRoute',
     'ui.bootstrap',
     'ui.router',
@@ -6,9 +6,9 @@ var pro2app = angular.module('pro2app', [
     'caseControllers',
     'caseServices',
     'navbarController'
-]);
+])
 
-pro2app.config(['$routeProvider', '$stateProvider',
+.config(['$routeProvider', '$stateProvider',
     function($routeProvider, $stateProvider) {
         $routeProvider.otherwise({redirectTo: "/menu"});
 
@@ -61,16 +61,16 @@ pro2app.config(['$routeProvider', '$stateProvider',
               }
           });
     }
-]);
+])
 
-pro2app.run(['hotkeys', '$location',
-    function(hotkeys) {
-        hotkeys.add({
-            combo: 'ctrl+alt+h',
-            description: 'Gå til startsiden',
-            callback: function() {
-                $location.path('/menu');
-            }
-        });
-    }
-]);
+.controller('AppController', ['$scope', 'hotkeys', '$location', function($scope, hotkeys, $location) {
+    hotkeys.add({
+        combo: 'ctrl+alt+h',
+        description: 'Gå til startsiden',
+        callback: function() {
+            $location.path('/menu');
+        }
+    });
+
+    // TODO: Add user
+}]);
