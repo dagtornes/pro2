@@ -1,4 +1,4 @@
-var caseControllers = angular.module('caseControllers', []);
+var caseControllers = angular.module('caseControllers', ['Auth']);
 
 caseControllers.controller('casesController', ['$scope', '$location', 'caseService',
     function($scope, $location, Case) {
@@ -60,8 +60,8 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseSer
     }
 ]);
 
-caseControllers.controller('menuController', ['$scope', '$location', 'userService', 'caseService',
-    function($scope, $location, User, Case) {
+caseControllers.controller('menuController', ['$scope', '$location', 'caseService',
+    function($scope, $location, Case) {
         $scope.menuitems = [
             {name: 'Fordele oppgaver', url:'#/distribute', cnt: Case.countByStep("distribute")},
             {name: 'Registrere reiseregning', url:'#/register', cnt: Case.countByStep('register')},
@@ -71,14 +71,14 @@ caseControllers.controller('menuController', ['$scope', '$location', 'userServic
     }
 ]);
 
-caseControllers.controller('loginController', ['$scope', '$rootScope', '$location', 'userService',
-    function($scope, $rootScope, $location, User) {
-        if (User.isLoggedIn()) {
+caseControllers.controller('loginController', ['$scope', '$rootScope', '$location', 'AuthService',
+    function($scope, $rootScope, $location, AuthService) {
+        if (AuthService.isAuthenticated()) {
             $scope.currentUser = User.currentUser;
         }
 
         $scope.login = function() {
-            User.login($scope.username, $scope.pwd);
+            AuthService.login($scope.username, $scope.pwd);
         };
 
         $scope.$on('Login', function() {
@@ -91,40 +91,3 @@ caseControllers.controller('loginController', ['$scope', '$rootScope', '$locatio
         });
     }
 ]);
-
-caseControllers.factory('userService', ['$rootScope', function($rootScope) {
-    User = {
-        currentUser: undefined,
-        users: [
-            {uname: 'dagt', name: 'Dag Øyvind', role: 'admin', pwd: 'god'},
-            {uname: 'testt', name: 'Test Testersen', role: 'user', pwd: 'password'}
-        ],
-    };
-    
-    User.logout = function() {
-        User.currentUser = undefined;
-        $rootScope.$broadcast('Logout');
-    };
-    
-    User.login = function(user, password) {
-        for (var i = 0; i < User.users.length; ++i) {
-            if (User.users[i].uname == user && User.users[i].pwd == password) {
-                User.currentUser = User.users[i];
-                $rootScope.$broadcast('Login');
-                return;
-            }
-        }
-        // No such user..
-        User.currentUser = undefined;
-        $rootScope.$broadcast('LoginFailed');
-    };
-
-    User.isLoggedIn = function() {
-        return User.currentUser !== undefined;
-    };
-    
-    User.currentUser = User.users[0];
-    $rootScope.$broadcast('Login');
-
-    return User;
-}]);

@@ -2,12 +2,17 @@ angular.module('Auth', [])
 
 .factory('AuthService', ['$http', 'Session', function($http, Session) {
     return {
-        login: function (credentials) {
+        login: function (username, password) {
+            var encoded = btoa(username + ':' + password);
+            $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
             return $http
-                .post('localhost:8000/auth/login/', credentials)
+                .get('http://localhost:8000/api/users/by_name/' + username + '/')
                 .success(function(data) {
-                    Session.create(data.sessionId, data.userId, data.role);
+                    console.log(data);
                 });
+        },
+        logout: function () {
+            $http.defaults.headers.common.Authorization = 'Basic ';
         },
         isAuthenticated: function () {
             return !!Session.userId;

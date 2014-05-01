@@ -1,9 +1,9 @@
-var navbarController = angular.module('navbarController', []);
+var navbarController = angular.module('navbarController', ['Auth']);
 
-navbarController.controller('navbarController', ['$scope', 'userService',
-    function($scope, User) {
+navbarController.controller('navbarController', ['$scope', 'AuthService',
+    function($scope, AuthService) {
         $scope.logout = function() {
-            User.logout();
+            AuthService.logout();
             $scope.currentUser = User.currentUser;
         };
         
