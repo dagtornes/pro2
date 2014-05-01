@@ -8,6 +8,7 @@ from caseService import views
 router = DefaultRouter()
 router.register(r'cases', views.CaseViewSet)
 router.register(r'users', views.UserViewSet)
+router.register(r'process_step', views.ProcessStepViewSet)
 
 admin.autodiscover()
 

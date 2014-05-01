@@ -1,25 +1,11 @@
 from django.db import models
 from django.db.models import Count
 
-ProcessSteps = (
-    (0, "Created"),
-    (1, "Distributed"),
-    (2, "Assigned"),
-    (3, "Completed"),
-    (4, "Finished"),
-)
-
-def create_case(owner, step):
-    step = filter(lambda on: on[1] == step, ProcessSteps)[0][0]
-    return Case(owner=owner, step=step)
-
-
-# Create your models here.
 class Case(models.Model):
-    owner = models.ForeignKey('auth.User', related_name='cases')
+    owner = models.ForeignKey('auth.User', related_name='cases', blank=True, null=True)
 
     created = models.DateTimeField(auto_now_add=True)
-    step = models.SmallIntegerField(choices=ProcessSteps, default=0)
+    step = models.ForeignKey('ProcessStep')
 
     def __unicode__(self):
         return "Case[%d]: step=%s" % (self.pk, self.step)
@@ -33,3 +19,12 @@ class Case(models.Model):
         step_map = cls.get_by_user(user).values('step').annotate(cnt=Count('step'))
         count_map = {v['step']: v['cnt'] for v in step_map}
         return count_map
+
+class ProcessStep(models.Model):
+    name = models.CharField(max_length=32)
+
+    transitions = models.ManyToManyField('self', blank=True, null=True, symmetrical=False, related_name='+')
+    default_transition = models.ForeignKey('self', blank=True, null=True)
+
+    def __unicode__(self):
+        return "ProcessStep[%d]: name=%s" % (self.pk, self.name)

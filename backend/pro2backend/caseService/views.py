@@ -6,8 +6,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 
 from caseService.models import Case
+from caseService.models import ProcessStep
 from caseService.serializers import CaseSerializer
 from caseService.serializers import UserSerializer
+from caseService.serializers import ProcessStepSerializer
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
@@ -22,6 +24,10 @@ class CaseViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.owner = self.request.user
 
+
+class ProcessStepViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = ProcessStep.objects.all()
+    serializer_class = ProcessStepSerializer
 
 @api_view(['GET'])
 def step_for_user(request):
