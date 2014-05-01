@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 
 from caseService.models import Case
 from caseService.models import ProcessStep
@@ -15,6 +17,14 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+@permission_classes((IsAuthenticated,))
+@api_view(['GET'])
+def user_by_name(request, username):
+    user = User.objects.get(username=username)
+    print user, type(user)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
 
 class CaseViewSet(viewsets.ModelViewSet):
     queryset = Case.objects.all()

@@ -15,6 +15,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
-	url(r'^api/cases/step-for-user', views.step_for_user, name='step-for-user'),
+    url(r'^api/cases/step-for-user', views.step_for_user, name='step-for-user'),
+    url(r'^api/users/by_name/(?P<username>[a-z]+)/', views.user_by_name, name='user-by-name'),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
