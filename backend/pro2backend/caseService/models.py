@@ -1,6 +1,9 @@
 from django.db import models
 from django.db.models import Count
 
+from django.contrib.auth.models import User
+
+
 class Case(models.Model):
     owner = models.ForeignKey('auth.User', related_name='cases', blank=True, null=True)
 
@@ -28,3 +31,8 @@ class ProcessStep(models.Model):
 
     def __unicode__(self):
         return "ProcessStep[%d]: name=%s" % (self.pk, self.name)
+
+class UserExtras(models.Model):
+    user = models.OneToOneField(User, related_name='extra')
+    region = models.CharField(max_length=32)
+    office = models.CharField(max_length=32)
