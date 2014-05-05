@@ -73,10 +73,6 @@ caseControllers.controller('menuController', ['$scope', '$location', 'caseServic
 
 caseControllers.controller('loginController', ['$scope', '$rootScope', '$location', 'AuthService',
     function($scope, $rootScope, $location, AuthService) {
-        if (AuthService.isAuthenticated()) {
-            $scope.currentUser = User.currentUser;
-        }
-
         $scope.login = function() {
             AuthService.login($scope.username, $scope.pwd);
         };
