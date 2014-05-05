@@ -11,3 +11,5 @@ backend/local/*
 *.pyc
 *.pyo
 *.sqlite3
+
+.DS_Store
