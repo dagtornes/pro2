@@ -1,5 +1,4 @@
 angular.module('pro2app', [
-    'ngRoute',
     'ui.bootstrap',
     'ui.router',
     'cfp.hotkeys',
@@ -8,9 +7,8 @@ angular.module('pro2app', [
     'navbarController'
 ])
 
-.config(['$routeProvider', '$stateProvider', '$httpProvider',
-    function($routeProvider, $stateProvider, $httpProvider) {
-        $routeProvider.otherwise({redirectTo: "/menu"});
+.config(['$urlRouterProvider', '$stateProvider', '$httpProvider',
+    function($urlRouterProvider, $stateProvider, $httpProvider) {
 
         $stateProvider
           .state('login', {
@@ -60,6 +58,8 @@ angular.module('pro2app', [
                   step: 'register'
               }
           });
+
+        $urlRouterProvider.otherwise('/menu');
 
         // CSRF-names for Django
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
