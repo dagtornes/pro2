@@ -13,18 +13,20 @@ from caseService.serializers import CaseSerializer
 from caseService.serializers import UserSerializer
 from caseService.serializers import ProcessStepSerializer
 
+
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 @permission_classes((IsAuthenticated,))
 @api_view(['GET'])
 def user_by_name(request, username):
     user = User.objects.get(username=username)
-    print user, type(user)
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
 
 class CaseViewSet(viewsets.ModelViewSet):
     queryset = Case.objects.all()
@@ -39,12 +41,12 @@ class ProcessStepViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ProcessStep.objects.all()
     serializer_class = ProcessStepSerializer
 
+
 @api_view(['GET'])
 def step_for_user(request):
-	"""
-	Return a map of step -> count for the given users cases
-	"""
+    """
+    Return a map of step -> count for the given users cases
+    """
 
-	step_map = Case.count_by_step(request.user)
-	return Response(step_map)
-		
+    step_map = Case.count_by_step(request.user)
+    return Response(step_map)

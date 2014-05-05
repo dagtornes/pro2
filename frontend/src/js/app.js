@@ -75,6 +75,4 @@ angular.module('pro2app', [
             $location.path('/menu');
         }
     });
-
-    // TODO: Add user
 }]);

@@ -4,8 +4,11 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 
 
+optional = {"blank": True, "null": True}
+
+
 class Case(models.Model):
-    owner = models.ForeignKey('auth.User', related_name='cases', blank=True, null=True)
+    owner = models.ForeignKey('auth.User', related_name='cases', **optional)
 
     created = models.DateTimeField(auto_now_add=True)
     step = models.ForeignKey('ProcessStep')
@@ -19,18 +22,23 @@ class Case(models.Model):
 
     @classmethod
     def count_by_step(cls, user):
-        step_map = cls.get_by_user(user).values('step').annotate(cnt=Count('step'))
+        cases = cls.get_by_user(user)
+        step_map = cases.values('step').annotate(cnt=Count('step'))
         count_map = {v['step']: v['cnt'] for v in step_map}
         return count_map
+
 
 class ProcessStep(models.Model):
     name = models.CharField(max_length=32)
 
-    transitions = models.ManyToManyField('self', blank=True, null=True, symmetrical=False, related_name='+')
+    transitions = models.ManyToManyField(
+        'self', symmetrical=False,
+        related_name='+', **optional)
     default_transition = models.ForeignKey('self', blank=True, null=True)
 
     def __unicode__(self):
         return "ProcessStep[%d]: name=%s" % (self.pk, self.name)
+
 
 class UserExtras(models.Model):
     user = models.OneToOneField(User, related_name='extra')
