@@ -17,6 +17,8 @@ angular.module('Auth', [])
                 .success(function(data) {
                     $rootScope.$broadcast('Login', {
                         username: credentials.username,
+                        region: data.extra.region,
+                        office: data.extra.office
                     });
                 });
         },

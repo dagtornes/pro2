@@ -20,6 +20,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li class="disabled"><a href="#">Rolle: {{ currentUser.role }}</a></li>
+                        <li class="disabled"><a href="#">Kontor: {{ currentUser.office | CapFirst}}</a></li>
                         <li><a href="#">Bytt passord</a></li>
                         <li class="divider"></li>
                         <li><a href="#never" ng-click="logout()">Logg ut</a></li>
