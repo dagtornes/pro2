@@ -75,4 +75,14 @@ angular.module('pro2app', [
             $location.path('/menu');
         }
     });
+
+    $scope.$on('Login', function(event, user) {
+        console.log(event);
+        $scope.currentUser = {
+            username: user.username,
+            role: 'fakerole',
+            region: 'fakeregion'
+        };
+        console.log("Login Event in AppController, username="+$scope.currentUser);
+    });
 }]);
