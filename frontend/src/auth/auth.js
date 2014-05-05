@@ -17,9 +17,14 @@ angular.module('Auth', [])
                 .success(function(data) {
                     $rootScope.$broadcast('Login', {
                         username: credentials.username,
+                        first_name: data.first_name,
+                        last_name: data.last_name,
                         region: data.extra.region,
                         office: data.extra.office
                     });
+                })
+                .error(function(message) {
+                    $rootScope.$broadcast('LoginFailed', message);
                 });
         },
         logout: function () {
@@ -27,6 +32,8 @@ angular.module('Auth', [])
             credentials.password = undefined;
 
             $http.defaults.headers.common.Authorization = 'Basic ';
+
+            $rootScope.$broadcast('Logout');
         },
         isAuthenticated: function () {
             return !!credentials.username;

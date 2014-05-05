@@ -93,9 +93,14 @@ angular.module('pro2app', [
     $scope.$on('Login', function(event, user) {
         $scope.currentUser = {
             username: user.username,
+            name: user.first_name + ' ' + user.last_name,
             region: user.region,
             office: user.office,
             role: 'should this be here?'
         };
+    });
+
+    $scope.$on('Logout', function(event) {
+        $scope.currentUser = undefined;
     });
 }]);
