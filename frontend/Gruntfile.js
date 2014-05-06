@@ -16,7 +16,9 @@ module.exports = function(grunt) {
                   'angular-bootstrap/ui-bootstrap.min.js',
                   'angular-ui-router/release/angular-ui-router.min.js',
                   'angular-hotkeys/build/hotkeys.min.js',
-                  'angular-hotkeys/build/hotkeys.min.css'
+                  'angular-hotkeys/build/hotkeys.min.css',
+                  'lodash/dist/lodash.min.js',
+                  'restangular/dist/restangular.min.js'
                 ],
                 dest: 'build',
                 expand: true
