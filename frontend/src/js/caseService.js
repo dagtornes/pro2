@@ -9,22 +9,14 @@ angular.module('caseServices', ['restangular'])
         return cases.getList();
     };
 
-    service.cases = [
-        {caseid: 12345, owner: "dagt", office: "nasjonalt", step: "distribute"},
-        {caseid: 12346, owner: "testt", office: "regionalt", step: "distribute"},
-        {caseid: 12347, owner: "testt", office: "regionalt", step: "register"}
-    ];
-
-    service.countByStep = function(step) {
-        return service.cases.filter(function(caze) {
-            return caze.step == step;
-        }).length;
+    service.getByStep = function(cases, step) {
+        return _.filter(cases, function(caze) {
+            return caze.step === step;
+        });
     };
 
-    service.getCasesByStep = function(step) {
-        return service.cases.filter(function(caze) {
-            return caze.step == step;
-        });
+    service.countByStep = function(cases, step) {
+        return service.getByStep(cases, step).length;
     };
 
     service.getCases = function() {

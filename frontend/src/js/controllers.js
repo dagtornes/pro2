@@ -59,12 +59,14 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseSer
 
 caseControllers.controller('menuController', ['$scope', '$location', 'caseService',
     function($scope, $location, Case) {
-        $scope.menuitems = [
-            {name: 'Fordele oppgaver', url:'#/distribute', cnt: Case.countByStep("distribute")},
-            {name: 'Registrere reiseregning', url:'#/register', cnt: Case.countByStep('register')},
-            {name: 'Vedtak', url:'#/decision', cnt: Case.countByStep('decision')},
-            {name: 'Administrer', url: '', cnt: 0}
-        ];
+        Case.getCasesFromBE().then(function(cases) {
+            $scope.menuitems = [
+                {name: 'Fordele oppgaver', url:'#/distribute', cnt: Case.countByStep(cases, 1)},
+                {name: 'Registrere reiseregning', url:'#/register', cnt: Case.countByStep(cases, 2)},
+                {name: 'Vedtak', url:'#/decision', cnt: Case.countByStep(cases, 3)},
+                {name: 'Administrer', url: '', cnt: 0}
+            ];
+        });
     }
 ]);
 
