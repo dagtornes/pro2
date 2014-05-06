@@ -7,8 +7,8 @@ angular.module('pro2app', [
     'navbarController'
 ])
 
-.config(['$urlRouterProvider', '$stateProvider', '$httpProvider',
-    function($urlRouterProvider, $stateProvider, $httpProvider) {
+.config(['$urlRouterProvider', '$stateProvider', '$httpProvider', 'RestangularProvider',
+    function($urlRouterProvider, $stateProvider, $httpProvider, RestangularProvider) {
 
         $stateProvider
           .state('login', {
@@ -60,6 +60,9 @@ angular.module('pro2app', [
           });
 
         $urlRouterProvider.otherwise('/menu');
+
+        RestangularProvider.setBaseUrl('http://localhost:8000/api');
+        RestangularProvider.setRequestSuffix('/');
 
         // CSRF-names for Django
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
