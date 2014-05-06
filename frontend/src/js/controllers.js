@@ -1,11 +1,15 @@
-var caseControllers = angular.module('caseControllers', ['Auth']);
+var caseControllers = angular.module('caseControllers', ['Auth', 'restangular']);
 
-caseControllers.controller('casesController', ['$scope', '$location', 'caseService',
-    function($scope, $location, Case) {
-        $scope.cases = Case.getCases();
+caseControllers.controller('casesController', ['$scope', '$location', 'caseService', 'ProcessService',
+    function($scope, $location, Case, Processes) {
+        $scope.cases = Case.getCasesFromBE().$object;
+
+        $scope.process_name = function(id) {
+            return Processes.byId(id).name;
+        };
 
         $scope.view_case = function(caze) {
-            $location.path('view/' + caze.caseid);
+            $location.path('view/' + caze.id);
         };
     }
 ]);
@@ -39,24 +43,17 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
     }
 ]);
 
-caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseService',
-    function($scope, $stateParams, Case) {
-        $scope.caze = Case.getCaseById($stateParams.caseId);
-
-        $scope.advance = function() {
-            Case.advance($scope.caze);
-            $scope.next_step = Case.next_step($scope.caze);
-            $scope.prev_step = Case.prev_step($scope.caze);
-        };
-
-        $scope.prev = function() {
-            Case.prev($scope.caze);
-            $scope.next_step = Case.next_step($scope.caze);
-            $scope.prev_step = Case.prev_step($scope.caze);
-        };
-
-        $scope.next_step = Case.next_step($scope.caze);
-        $scope.prev_step = Case.prev_step($scope.caze);
+caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseService', 'ProcessService',
+    function($scope, $stateParams, Case, Processes) {
+        Case.getCaseById($stateParams.caseId)
+            .then(function(caze) {
+                $scope.caze = caze;
+                $scope.process = Processes.byId(caze.step).name;
+                $scope.next = function(caze) {
+                    caze.step = 2;
+                    caze.patch();
+                };
+            });
     }
 ]);
 

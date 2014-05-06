@@ -1,12 +1,15 @@
 <div class="row">
+    <div class="col-md-8 col-md-offset-2" ng-if="caze === undefined">
+        <h1> Ingen sak </h1>
+    </div>
     <div class="col-md-8 col-md-offset-2">
-        <h1>Sak: {{caze.caseid}} <small>{{caze.step}}</small></h1>
+        <h1>Sak: {{caze.id}} <small>{{ process }}</small></h1>
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default" ng-click="prev()" ng-if="caze.step !== 'distribute'">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 {{prev_step}}
             </button>
-            <button type="button" class="btn btn-default" ng-click="advance()" ng-if="caze.step !== 'completed'">
+            <button type="button" class="btn btn-default" ng-click="next(caze)" ng-if="caze.step !== 'completed'">
                 {{next_step}}
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </button>

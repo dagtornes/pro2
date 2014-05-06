@@ -10,9 +10,9 @@
 			<tbody>
 				<tr ng-repeat="caze in cases" ng-click="view_case(caze)">
 					<td>
-						<a href="#/view/{{caze.caseid}}">{{caze.caseid}}</a>
+						<a href="#/view/{{caze.id}}">{{caze.id}}</a>
 					</td>
-					<td>{{caze.owner}}</td> <td>{{caze.office}}</td> <td>{{caze.step}}</td>
+					<td>{{caze.owner}}</td> <td>{{caze.office}}</td> <td>{{process_name(caze.step)}}</td>
 				</tr>
 			</tbody>
 		</table>

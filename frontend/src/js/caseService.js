@@ -1,7 +1,14 @@
-var caseServices = angular.module('caseServices', []);
+angular.module('caseServices', ['restangular'])
 
-caseServices.factory('caseService', function() {
+.factory('caseService', ['Restangular', function(Restangular) {
+    var cases = Restangular.all('cases');
+
     service = {};
+
+    service.getCasesFromBE = function() {
+        return cases.getList();
+    };
+
     service.cases = [
         {caseid: 12345, owner: "dagt", office: "nasjonalt", step: "distribute"},
         {caseid: 12346, owner: "testt", office: "regionalt", step: "distribute"},
@@ -33,11 +40,8 @@ caseServices.factory('caseService', function() {
     };
 
     service.getCaseById = function(id) {
-        for (var i = 0; i < service.cases.length; ++i) {
-            if (service.cases[i].caseid == id) {
-                return service.cases[i];
-            }
-        }
+        var caze = Restangular.one('cases', id);
+        return caze.get();
     };
 
     service.next_step = function(caze) {
@@ -73,5 +77,25 @@ caseServices.factory('caseService', function() {
 	};
 
     return service;
-});
+}])
+
+.factory('ProcessService', ['Restangular', function(Restangular) {
+    var service = {};
+
+    Restangular.all('process_step').getList()
+        .then(function(process_steps) {
+            service.process_steps = process_steps;
+            console.log(process_steps);
+        });
+
+    service.byId = function(id) {
+        return service.process_steps.filter(function(step) {return step.id === id;})[0];
+    };
+
+    service.byName = function(name) {
+        return service.process_steps.filter(function(step) {return step.name == name;})[0];
+    };
+
+    return service;
+}]);
 
