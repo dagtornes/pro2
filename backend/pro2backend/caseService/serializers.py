@@ -3,12 +3,12 @@ from rest_framework import serializers
 from caseService.models import Case, ProcessStep
 from caseService.models import UserExtras
 
-class CaseSerializer(serializers.HyperlinkedModelSerializer):
+class CaseSerializer(serializers.ModelSerializer):
     owner = serializers.Field(source='owner.username')
 
     class Meta:
         model = Case
-        fields = ('url', 'id', 'created', 'owner', 'step')
+        fields = ('id', 'created', 'owner', 'step')
 
 class ProcessStepSerializer(serializers.ModelSerializer):
     class Meta:
