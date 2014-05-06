@@ -5,7 +5,7 @@
     <div class="col-md-8 col-md-offset-2">
         <h1>Sak: {{caze.id}} <small>{{ process }}</small></h1>
         <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default" ng-click="prev()" ng-if="caze.step !== 'distribute'">
+            <button type="button" class="btn btn-default" ng-click="prev(caze)" ng-if="caze.step !== 'distribute'">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 {{prev_step}}
             </button>

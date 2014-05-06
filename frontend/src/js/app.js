@@ -37,16 +37,7 @@ angular.module('pro2app', [
               controller: 'distributeController',
               data: {
                   title: 'Fordele oppgaver',
-                  step: 'distribute'
-              }
-          })
-          .state('decision', {
-              url: '/decision',
-              templateUrl: 'distribute.html',
-              controller: 'distributeController',
-              data: {
-                  title: 'Fatte vedtak',
-                  step: 'decision'
+                  step: 1
               }
           })
           .state('register', {
@@ -55,7 +46,16 @@ angular.module('pro2app', [
               controller: 'distributeController',
               data: {
                   title: 'Registrere reiseregning',
-                  step: 'register'
+                  step: 2
+              }
+          })
+          .state('decision', {
+              url: '/decision',
+              templateUrl: 'distribute.html',
+              controller: 'distributeController',
+              data: {
+                  title: 'Fatte vedtak',
+                  step: 3
               }
           });
 

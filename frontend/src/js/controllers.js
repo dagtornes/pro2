@@ -18,7 +18,10 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
     function($scope, Case, $location, $state, hotkeys) {
         $scope.title = $state.current.data.title;
 
-        $scope.cases = Case.getCasesByStep($state.current.data.step);
+        Case.getCasesFromBE()
+            .then(function(cases) {
+                $scope.cases = Case.getByStep(cases, $state.current.data.step);
+            });
 
         hotkeys.add({
             combo: 'enter',
@@ -34,11 +37,11 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
         
         $scope.getNextCase = function () {
             caze = $scope.cases.shift();
-            $location.path('view/' + caze.caseid);
+            $location.path('view/' + caze.id);
         };
 
         $scope.hasNextCase = function() {
-            return $scope.cases.length !== 0;
+            return $scope.cases && $scope.cases.length !== 0;
         };
     }
 ]);
@@ -50,8 +53,14 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseSer
                 $scope.caze = caze;
                 $scope.process = Processes.byId(caze.step).name;
                 $scope.next = function(caze) {
-                    caze.step = 2;
+                    caze.step = Math.min(caze.step+1, 3);
                     caze.patch();
+                    $scope.process = Processes.byId(caze.step).name;
+                };
+                $scope.prev = function(caze) {
+                    caze.step = Math.max(caze.step-1, 0);
+                    caze.patch();
+                    $scope.process = Processes.byId(caze.step).name;
                 };
             });
     }
