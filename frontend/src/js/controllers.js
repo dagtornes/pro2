@@ -48,19 +48,26 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
 
 caseControllers.controller('caseController', ['$scope', '$stateParams', 'caseService', 'ProcessService',
     function($scope, $stateParams, Case, Processes) {
+        function setStepNames(step, $scope) {
+            $scope.process = Processes.byId(step).name;
+            $scope.prev_step = (step > 1) ? Processes.byId(step - 1).name : undefined;
+            $scope.next_step = (step < 3) ? Processes.byId(step + 1).name : undefined;
+        }
+
         Case.getCaseById($stateParams.caseId)
             .then(function(caze) {
                 $scope.caze = caze;
                 $scope.process = Processes.byId(caze.step).name;
+                setStepNames(caze.step, $scope);
                 $scope.next = function(caze) {
                     caze.step = Math.min(caze.step+1, 3);
                     caze.patch();
-                    $scope.process = Processes.byId(caze.step).name;
+                    setStepNames(caze.step, $scope);
                 };
                 $scope.prev = function(caze) {
-                    caze.step = Math.max(caze.step-1, 0);
+                    caze.step = Math.max(caze.step-1, 1);
                     caze.patch();
-                    $scope.process = Processes.byId(caze.step).name;
+                    setStepNames(caze.step, $scope);
                 };
             });
     }
