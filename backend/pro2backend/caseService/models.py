@@ -13,6 +13,8 @@ class Case(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     step = models.ForeignKey('ProcessStep')
 
+    person = models.ForeignKey('personService.Person', blank=True, null=True)
+
     def __unicode__(self):
         return "Case[%d]: step=%s" % (self.pk, self.step)
 
