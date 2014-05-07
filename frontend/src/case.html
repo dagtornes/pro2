@@ -4,6 +4,13 @@
     </div>
     <div class="col-md-8 col-md-offset-2">
         <h1>Sak: {{caze.id}} <small>{{ process }}</small></h1>
+        <hr />
+        <p>
+            <small>Pasient:</small>
+            {{patient.name}}
+            <button type="button" class="btn btn-default btn-xs" ng-click="showmodal()">Endre</button>
+        </p>
+        <p><small>Adresse:</small> {{patient.address}}</p>
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default" ng-click="prev(caze)" ng-if="caze.step > 1">
                 <span class="glyphicon glyphicon-chevron-left"></span>
