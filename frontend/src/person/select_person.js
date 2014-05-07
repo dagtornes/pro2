@@ -1,11 +1,20 @@
-angular.module('SelectPerson', [])
+angular.module('SelectPerson', ['restangular'])
 
-.controller('SelectPersonController', ['$scope', '$modalInstance', function($scope, $modalInstance) {
-    $scope.ok = function() {
-        $modalInstance.close("OK");
+.controller('SelectPersonController', ['$scope', '$modalInstance', 'Restangular',
+        function($scope, $modalInstance, Restangular) {
+
+    $scope.setPerson = function (person) {
+        $modalInstance.close(person);
+    };
+
+    $scope.persons = undefined;
+    $scope.search = function() {
+        Restangular.all('persons').getList().then(function(persons) {
+            $scope.persons = persons;
+        });
     };
 
     $scope.close = function() {
-        $modalInstance.dismiss("Avbrutt");
+        $modalInstance.dismiss(undefined);
     };
 }]);

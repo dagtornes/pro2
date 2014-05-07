@@ -46,8 +46,8 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
     }
 ]);
 
-caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal', 'caseService', 'ProcessService',
-    function($scope, $stateParams, $modal, Case, Processes) {
+caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal', 'caseService', 'ProcessService', 'Restangular',
+    function($scope, $stateParams, $modal, Case, Processes, Restangular) {
         function setStepNames(step, $scope) {
             $scope.process = Processes.byId(step).name;
             $scope.prev_step = (step > 1) ? Processes.byId(step - 1).name : undefined;
@@ -69,21 +69,22 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                     caze.patch();
                     setStepNames(caze.step, $scope);
                 };
+                Restangular.one('persons', caze.person).get().then(
+                    function (person) {
+                        $scope.person = person;
+                    });
             });
-        $scope.patient = {
-            name: 'Ola Nordmann',
-            address: 'Gategata 1'
-        };
 
+        $scope.person = {first_name:'Ikke', last_name:'valgt'};
         $scope.showmodal = function () {
             $modal.open({
                 templateUrl: 'person/select_person.html',
                 controller: 'SelectPersonController',
                 backdrop: 'static'
-            }).result.then(function (msg) {
-                console.log(msg);
-            }, function (err) {
-                console.log("Dismissed: " + err);
+            }).result.then(function (person) {
+                $scope.caze.person = person.id;
+                $scope.caze.patch();
+                $scope.person = person;
             });
         };
     }
