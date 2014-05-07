@@ -1,3 +1,5 @@
-Django==1.6.3
+-e git://github.com/django/django.git@a2e3c9694823d6d451d6dd234e9d416600aacc68#egg=Django-master
+argparse==1.2.1
 django-cors-headers==0.12
 djangorestframework==2.3.13
+wsgiref==0.1.2
