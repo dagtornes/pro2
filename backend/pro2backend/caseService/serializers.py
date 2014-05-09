@@ -2,14 +2,17 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from caseService.models import Case, ProcessStep
 from caseService.models import UserExtras
+from personService.serializers import PersonSerializer
 
 
 class CaseSerializer(serializers.ModelSerializer):
     owner = serializers.Field(source='owner.username')
 
+    person_nested = PersonSerializer(source='person')
+
     class Meta:
         model = Case
-        fields = ('id', 'created', 'owner', 'step', 'person')
+        fields = ('id', 'created', 'owner', 'step', 'person', 'person_nested')
 
 
 class ProcessStepSerializer(serializers.ModelSerializer):
