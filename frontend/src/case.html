@@ -1,6 +1,6 @@
 <div class="row" ng-cloak>
-    <div class="col-md-8 col-md-offset-2" ng-if="caze === undefined">
-        <h1> Ingen sak </h1>
+    <div class="col-md-8 col-md-offset-2" ng-if="alerts.length > 0">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
     </div>
     <div class="col-md-8 col-md-offset-2">
         <h1>Sak: {{caze.id}} <small>{{ process }}</small></h1>

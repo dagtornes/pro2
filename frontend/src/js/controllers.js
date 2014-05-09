@@ -48,6 +48,19 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
 
 caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal', 'caseService', 'ProcessService', 'Restangular',
     function($scope, $stateParams, $modal, Case, Processes, Restangular) {
+        $scope.alerts = [
+            { type: 'danger', msg: 'FOOO'}
+        ];
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+        $scope.addAlert = function(msg, type) {
+            type = typeof type !== 'undefined' ? type : 'danger';
+            $scope.alerts.push({msg: msg, type: type});
+        };
+
         function setStepNames(step, $scope) {
             $scope.process = Processes.byId(step).name;
             $scope.prev_step = (step > 1) ? Processes.byId(step - 1).name : undefined;
@@ -82,9 +95,11 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                 controller: 'SelectPersonController',
                 backdrop: 'static'
             }).result.then(function (person) {
-                $scope.caze.person = person.id;
-                $scope.caze.patch();
-                $scope.person = person;
+                $scope.caze.patch({person: person.id}).then(function(person) {
+                    $scope.person = person;
+                }, function (error) {
+                    $scope.addAlert(error.data.detail);
+                });
             });
         };
     }
