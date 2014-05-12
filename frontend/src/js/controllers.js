@@ -31,6 +31,12 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
             }
         });
 
+        // Delete local hotkey, until hotkeys works with ui-route..
+        // TODO: Hotkeys + ui-route
+        $scope.$on('$destroy', function () {
+            hotkeys.del('enter');
+        });
+
         $scope.getCases = function() {
             return Case.getCasesByStep($state.current.data.step);
         };
