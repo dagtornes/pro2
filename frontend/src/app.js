@@ -4,7 +4,8 @@ angular.module('pro2app', [
     'cfp.hotkeys',
     'caseControllers',
     'caseServices',
-    'navbarController'
+    'navbarController',
+    'Login'
 ])
 
 .config(['$urlRouterProvider', '$stateProvider', '$httpProvider', 'RestangularProvider',
@@ -13,7 +14,7 @@ angular.module('pro2app', [
         $stateProvider
           .state('login', {
               url: "/login",
-              templateUrl: 'login.html',
+              templateUrl: 'login/login.html',
               controller: 'loginController'
           })
           .state('menu', {
