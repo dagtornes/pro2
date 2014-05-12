@@ -54,9 +54,7 @@ caseControllers.controller('distributeController', ['$scope', 'caseService', '$l
 
 caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal', 'caseService', 'ProcessService', 'Restangular',
     function($scope, $stateParams, $modal, Case, Processes, Restangular) {
-        $scope.alerts = [
-            { type: 'danger', msg: 'FOOO'}
-        ];
+        $scope.alerts = [];
 
         $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
