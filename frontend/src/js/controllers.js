@@ -99,8 +99,8 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                 controller: 'SelectPersonController',
                 backdrop: 'static'
             }).result.then(function (person) {
-                $scope.caze.patch({person: person.id}).then(function(person) {
-                    $scope.person = person;
+                $scope.caze.patch({person: person.id}).then(function(caze) {
+                    $scope.person = caze.person_nested;
                 }, function (error) {
                     $scope.addAlert(error.data.detail);
                 });
