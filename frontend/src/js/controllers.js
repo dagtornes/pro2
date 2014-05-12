@@ -1,4 +1,4 @@
-var caseControllers = angular.module('caseControllers', ['Auth', 'restangular', 'SelectPerson']);
+var caseControllers = angular.module('caseControllers', ['restangular', 'Auth', 'SelectPerson']);
 
 caseControllers.controller('casesController', ['$scope', '$location', 'caseService', 'ProcessService',
     function($scope, $location, Case, Processes) {
