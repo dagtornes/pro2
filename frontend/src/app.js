@@ -92,6 +92,13 @@ angular.module('pro2app', [
             $location.path('/menu');
         }
     });
+    hotkeys.add({
+        combo: '/',
+        description: 'Søk etter saker',
+        callback: function() {
+            $location.path('/case');
+        }
+    });
 
     $scope.$on('Login', function(event, user) {
         $scope.currentUser = {
