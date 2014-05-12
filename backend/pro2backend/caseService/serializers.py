@@ -8,7 +8,7 @@ from personService.serializers import PersonSerializer
 class CaseSerializer(serializers.ModelSerializer):
     owner = serializers.Field(source='owner.username')
 
-    person_nested = PersonSerializer(source='person')
+    person_nested = PersonSerializer(source='person', read_only=True)
 
     class Meta:
         model = Case
