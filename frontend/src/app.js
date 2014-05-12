@@ -70,6 +70,16 @@ angular.module('pro2app', [
     }
 ])
 
+.run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, Auth) {
+
+    $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams) {
+            if (!Auth.isAuthenticated() && toState !== 'login') {
+                $location.path('/login');
+            }
+        });
+}])
+
 .filter('CapFirst', function() {
     return function(input, scope) {
         return input.substring(0,1).toUpperCase() + input.substring(1);
