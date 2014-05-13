@@ -14,3 +14,6 @@ class Person(models.Model):
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
     ssn = models.CharField(max_length=11, validators=[valid_ssn])
+
+    def __unicode__(self):
+        return ' '.join((self.first_name, self.last_name))
