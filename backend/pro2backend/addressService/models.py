@@ -1,5 +1,7 @@
 from django.db import models
 
+from personService.models import Person
+
 
 class Address(models.Model):
 
@@ -8,3 +10,5 @@ class Address(models.Model):
     subnum = models.CharField(max_length=5)
 
     postid = models.CharField(max_length=4)
+
+    person = models.ForeignKey(Person)
