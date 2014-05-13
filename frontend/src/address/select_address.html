@@ -1,0 +1,19 @@
+
+<div class="modal-header">
+    <h3 class="modal-title">Velg adresse</h3>
+</div>
+<div class="modal-body">
+    <p>Velg en adresse her</p>
+    <ul>
+        <li ng-repeat="address in addresses">
+            <p>
+                {{address.street}}
+                <button class="btn btn-default btn-xs pull-right" ng-click="setAddress(address)">Velg</button>
+            </p>
+        </li>
+    </ul>
+    <button class="btn btn-default pull-right" ng-click="createAddress()">Legg til ny adresse</button>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="close()">Avbryt</button>
+</div>

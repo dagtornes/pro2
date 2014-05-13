@@ -1,4 +1,4 @@
-var caseControllers = angular.module('caseControllers', ['restangular', 'Auth', 'SelectPerson']);
+var caseControllers = angular.module('caseControllers', ['restangular', 'Auth', 'SelectPerson', 'SelectAddress']);
 
 caseControllers.controller('casesController', ['$scope', '$location', 'caseService', 'ProcessService',
     function($scope, $location, Case, Processes) {
@@ -92,8 +92,7 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                     });
             });
 
-        $scope.person = {first_name:'Ikke', last_name:'valgt'};
-        $scope.showmodal = function () {
+        $scope.showPersonSelect = function () {
             $modal.open({
                 templateUrl: 'person/select_person.html',
                 controller: 'SelectPersonController',
@@ -105,6 +104,23 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                     $scope.addAlert(error.data.detail);
                 });
             });
+        };
+
+        $scope.showAddressSelect = function (person) {
+            if (person !== undefined) {
+                $modal.open({
+                    templateUrl: 'address/select_address.html',
+                    controller: 'SelectAddressController',
+                    backdrop: 'static',
+                    resolve: {
+                        addresses: function() {
+                            return person.address_nested;
+                        }
+                    }
+                }).result.then(function (address) {
+                    $scope.address = address;
+                });
+            }
         };
     }
 ]);
