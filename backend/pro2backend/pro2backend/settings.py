@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'caseService',
     'personService',
+    'addressService'
 )
 
 MIDDLEWARE_CLASSES = (
