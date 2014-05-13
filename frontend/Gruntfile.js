@@ -9,6 +9,7 @@ module.exports = function(grunt) {
                   'angular/angular.js',
                   'angular/angular.min.js',
                   'angular/angular.min.js.map',
+                  'angular-cookies/angular-cookies.min.js',
                   'angular-route/angular-route.js',
                   'angular-route/angular-route.min.js',
                   'angular-route/angular-route.min.js.map',

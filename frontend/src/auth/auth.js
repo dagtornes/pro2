@@ -17,6 +17,7 @@ angular.module('Auth', [])
                 .success(function(data) {
                     $rootScope.$broadcast('Login', {
                         username: credentials.username,
+                        password: credentials.password,
                         first_name: data.first_name,
                         last_name: data.last_name,
                         region: data.extra.region,

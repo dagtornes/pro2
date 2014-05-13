@@ -1,4 +1,5 @@
 angular.module('pro2app', [
+    'ngCookies',
     'ui.bootstrap',
     'ui.router',
     'cfp.hotkeys',
@@ -71,7 +72,7 @@ angular.module('pro2app', [
     }
 ])
 
-.run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, Auth) {
+.run(['$rootScope', '$location', '$cookies', 'AuthService', function($rootScope, $location, $cookies, Auth) {
 
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams) {
@@ -79,6 +80,11 @@ angular.module('pro2app', [
                 $location.path('/login');
             }
         });
+
+    // TODO: Replace this with actual session-storage..
+    if ($cookies.username !== 'undefined' && $cookies.password !== 'undefined') {
+        Auth.login($cookies.username, $cookies.password);
+    }
 }])
 
 .filter('CapFirst', function() {
@@ -95,7 +101,8 @@ angular.module('pro2app', [
     };
 })
 
-.controller('AppController', ['$scope', 'hotkeys', '$location', function($scope, hotkeys, $location) {
+.controller('AppController', ['$scope', '$cookies', 'hotkeys', '$location',
+        function($scope, $cookies, hotkeys, $location) {
     hotkeys.add({
         combo: 'ctrl+alt+h',
         description: 'Gå til startsiden',
@@ -119,6 +126,9 @@ angular.module('pro2app', [
             office: user.office,
             role: 'should this be here?'
         };
+
+        $cookies.username = user.username;
+        $cookies.password = user.password;
     });
 
     $scope.$on('Logout', function(event) {
