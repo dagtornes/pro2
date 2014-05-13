@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 from caseService import views as case_views
 from personService import views as person_views
+from addressService import views as address_views
 
 
 router = DefaultRouter()
@@ -12,6 +13,7 @@ router.register(r'cases', case_views.CaseViewSet)
 router.register(r'users', case_views.UserViewSet)
 router.register(r'process_step', case_views.ProcessStepViewSet)
 router.register(r'persons', person_views.PersonViewSet)
+router.register(r'address', address_views.AddressViewSet)
 
 admin.autodiscover()
 
