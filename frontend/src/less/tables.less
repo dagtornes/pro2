@@ -99,6 +99,22 @@ th {
   }
 }
 
+// Non-bordered version
+.table-noborder {
+  border: none;
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        border: none;
+      }
+    }
+  }
+}
+
+
 
 // Zebra-striping
 //
