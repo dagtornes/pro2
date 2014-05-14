@@ -109,13 +109,15 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                     templateUrl: 'address/select_address.html',
                     controller: 'SelectAddressController',
                     backdrop: 'static',
+                    size: 'lg',
                     resolve: {
-                        addresses: function() {
-                            return person.address_nested;
+                        person: function() {
+                            return person;
                         }
                     }
                 }).result.then(function (address) {
                     $scope.caze.patch({address: address.id}).then(function(caze) {
+                        $scope.caze = caze;
                         $scope.address = caze.address_nested;
                     }, function (err) {
                         $scope.addAlert(err.data.detail);
