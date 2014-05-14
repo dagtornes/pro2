@@ -85,11 +85,17 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                 controller: 'SelectPersonController',
                 backdrop: 'static'
             }).result.then(function (person) {
-                $scope.caze.patch({person: person.id}).then(function(caze) {
-                    $scope.person = caze.person_nested;
-                }, function (error) {
-                    $scope.addAlert(error.data.detail);
-                });
+                if (person.id !== $scope.person.id) {
+                    $scope.address = undefined;
+                    $scope.caze.patch({
+                        person: person.id,
+                        address: null 
+                    }).then(function(caze) {
+                        $scope.person = caze.person_nested;
+                    }, function (error) {
+                        $scope.addAlert(error.data.detail);
+                    });
+                }
             });
         };
 
