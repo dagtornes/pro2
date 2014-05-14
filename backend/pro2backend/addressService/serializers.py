@@ -6,4 +6,4 @@ from addressService.models import Address
 class AddressSerializer(ModelSerializer):
     class Meta:
         model = Address
-        fields = ('street', 'number', 'subnum', 'postid', 'person')
+        fields = ('id', 'street', 'number', 'subnum', 'postid', 'person')

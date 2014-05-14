@@ -7,6 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('personService', '0001_initial'),
     ]
 
     operations = [
@@ -18,6 +19,7 @@ class Migration(migrations.Migration):
                 ('number', models.CharField(max_length=5)),
                 ('subnum', models.CharField(max_length=5)),
                 ('postid', models.CharField(max_length=4)),
+                ('person', models.ForeignKey(to='personService.Person', to_field='id')),
             ],
             options={
             },

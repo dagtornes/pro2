@@ -3,16 +3,18 @@ from rest_framework import serializers
 from caseService.models import Case, ProcessStep
 from caseService.models import UserExtras
 from personService.serializers import PersonSerializer
+from addressService.serializers import AddressSerializer
 
 
 class CaseSerializer(serializers.ModelSerializer):
     owner = serializers.Field(source='owner.username')
 
     person_nested = PersonSerializer(source='person', read_only=True)
+    address_nested = AddressSerializer(source='address', read_only=True)
 
     class Meta:
         model = Case
-        fields = ('id', 'created', 'owner', 'step', 'person', 'person_nested')
+        fields = ('id', 'created', 'owner', 'step', 'address', 'address_nested', 'person', 'person_nested')
 
 
 class ProcessStepSerializer(serializers.ModelSerializer):

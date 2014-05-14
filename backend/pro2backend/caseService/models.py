@@ -4,19 +4,22 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 
 
-optional = {"blank": True, "null": True}
+optional = {'blank': True, 'null': True}
 
 
 class Case(models.Model):
     owner = models.ForeignKey('auth.User', related_name='cases', **optional)
 
     created = models.DateTimeField(auto_now_add=True)
-    step = models.ForeignKey('ProcessStep')
+    step = models.ForeignKey('ProcessStep', **optional)
 
-    person = models.ForeignKey('personService.Person', blank=True, null=True)
+    person = models.ForeignKey('personService.Person',
+                               blank=True, null=True)
+    address = models.ForeignKey('addressService.Address',
+                                blank=True, null=True)
 
     def __unicode__(self):
-        return "Case[%d]: step=%s" % (self.pk, self.step)
+        return 'Case[%d]: step=%s' % (self.pk, self.step)
 
     @classmethod
     def get_by_user(cls, user):
@@ -35,11 +38,11 @@ class ProcessStep(models.Model):
 
     transitions = models.ManyToManyField(
         'self', symmetrical=False,
-        related_name='+', **optional)
+        related_name='+', blank=True, null=True)
     default_transition = models.ForeignKey('self', blank=True, null=True)
 
     def __unicode__(self):
-        return "ProcessStep[%d]: name=%s" % (self.pk, self.name)
+        return 'ProcessStep[%d]: name=%s' % (self.pk, self.name)
 
 
 class UserExtras(models.Model):
