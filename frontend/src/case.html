@@ -5,18 +5,21 @@
     <div class="col-md-8 col-md-offset-2">
         <h1>Sak: {{caze.id}} <small>{{ process }}</small></h1>
         <hr />
-        <p>
-            <small>Pasient:</small>
-            {{person.first_name}} {{person.last_name}}
-            <button type="button" class="btn btn-default btn-xs" ng-click="showPersonSelect()">Endre</button>
-        </p>
-        <p>
-            <small>Adresse:</small> 
-            {{address.street}} {{address.number}}{{address.subnum}}
-            {{address.postid}} 
-            <button type="button" class="btn btn-default btn-xs" ng-click="showAddressSelect(person)">Velg adresse</button>
-        </p>
-
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>
+                    <small>Pasient:</small>
+                    {{person.first_name}} {{person.last_name}}
+                    <button type="button" class="btn btn-default btn-xs" ng-click="showPersonSelect()">Endre</button>
+                </p>
+                <p>
+                    <small>Adresse:</small> 
+                    {{address.street}} {{address.number}}{{address.subnum}}
+                    {{address.postid}} 
+                    <button type="button" class="btn btn-default btn-xs" ng-click="showAddressSelect(person)">Velg adresse</button>
+                </p>
+            </div>
+        </div>
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default" ng-click="prev(caze)" ng-if="caze.step > 1">
                 <span class="glyphicon glyphicon-chevron-left"></span>
