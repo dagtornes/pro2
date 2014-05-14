@@ -4,6 +4,7 @@ angular.module('pro2app', [
     'ui.router',
     'cfp.hotkeys',
     'caseControllers',
+    'case',
     'caseServices',
     'navbarController',
     'Login'
@@ -25,12 +26,12 @@ angular.module('pro2app', [
           })
           .state('case', {
               url: '/case',
-              templateUrl: 'cases.html',
+              templateUrl: 'case/cases.html',
               controller: 'casesController'
           })
           .state('view', {
               url: '/view/:caseId',
-              templateUrl: 'case.html',
+              templateUrl: 'case/case.html',
               controller: 'caseController'
           })
           .state('distribute', {
