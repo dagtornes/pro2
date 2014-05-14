@@ -85,7 +85,7 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                 controller: 'SelectPersonController',
                 backdrop: 'static'
             }).result.then(function (person) {
-                if (person.id !== $scope.person.id) {
+                if (!$scope.person || person.id !== $scope.person.id) {
                     $scope.address = undefined;
                     $scope.caze.patch({
                         person: person.id,
