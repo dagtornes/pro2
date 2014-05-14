@@ -74,7 +74,8 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
         Case.getCaseById($stateParams.caseId)
             .then(function(caze) {
                 $scope.caze = caze;
-                $scope.process = Processes.byId(caze.step).name;
+                $scope.person = caze.person_nested;
+                $scope.address = caze.address_nested;
                 setStepNames(caze.step, $scope);
                 $scope.next = function(caze) {
                     caze.step = Math.min(caze.step+1, 3);
@@ -86,10 +87,6 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                     caze.patch();
                     setStepNames(caze.step, $scope);
                 };
-                Restangular.one('persons', caze.person).get().then(
-                    function (person) {
-                        $scope.person = person;
-                    });
             });
 
         $scope.showPersonSelect = function () {
@@ -118,7 +115,11 @@ caseControllers.controller('caseController', ['$scope', '$stateParams', '$modal'
                         }
                     }
                 }).result.then(function (address) {
-                    $scope.address = address;
+                    $scope.caze.patch({address: address.id}).then(function(caze) {
+                        $scope.address = caze.address_nested;
+                    }, function (err) {
+                        $scope.addAlert(err.data.detail);
+                    });
                 });
             }
         };
