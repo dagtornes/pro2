@@ -134,4 +134,16 @@ angular.module('pro2app', [
     $scope.$on('Logout', function(event) {
         $scope.currentUser = undefined;
     });
+
+
+    $scope.alerts = [];
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+    $scope.addAlert = function(msg, type) {
+        type = typeof type !== 'undefined' ? type : 'danger';
+        $scope.alerts.push({msg: msg, type: type});
+    };
 }]);
