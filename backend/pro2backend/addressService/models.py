@@ -12,3 +12,7 @@ class Address(models.Model):
     postid = models.CharField(max_length=4)
 
     person = models.ForeignKey(Person)
+
+    def __unicode__(self):
+        return "%s %s%s, %s" % (self.street, self.number, self.subnum,
+                                self.postid)
