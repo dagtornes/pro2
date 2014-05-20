@@ -1,4 +1,4 @@
-from restframework.serilizer import ModelSerializer
+from rest_framework.serializers import ModelSerializer
 
 from journeyService.models import Journey
 

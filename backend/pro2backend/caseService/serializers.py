@@ -4,6 +4,7 @@ from caseService.models import Case, ProcessStep
 from caseService.models import UserExtras
 from personService.serializers import PersonSerializer
 from addressService.serializers import AddressSerializer
+from journeyService.serializers import JourneySerializer
 
 
 class CaseSerializer(serializers.ModelSerializer):
@@ -11,10 +12,13 @@ class CaseSerializer(serializers.ModelSerializer):
 
     person_nested = PersonSerializer(source='person', read_only=True)
     address_nested = AddressSerializer(source='address', read_only=True)
+    journeys_nested = JourneySerializer(source='journey_set', many=True)
 
     class Meta:
         model = Case
-        fields = ('id', 'created', 'owner', 'step', 'address', 'address_nested', 'person', 'person_nested')
+        fields = ('id', 'created', 'owner', 'step', 'address',
+                  'address_nested', 'person', 'person_nested',
+                  'journey_set', 'journeys_nested')
 
 
 class ProcessStepSerializer(serializers.ModelSerializer):
@@ -35,4 +39,5 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'cases', 'extra')
+        fields = ('id', 'username', 'first_name', 'last_name', 'cases',
+                  'extra')
