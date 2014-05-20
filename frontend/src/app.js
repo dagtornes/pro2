@@ -102,8 +102,12 @@ angular.module('pro2app', [
     };
 })
 
-.controller('AppController', ['$scope', '$cookies', 'hotkeys', '$location',
-        function($scope, $cookies, hotkeys, $location) {
+.controller('AppController', ['$scope', '$cookies', 'hotkeys', '$location', '$http',
+        function($scope, $cookies, hotkeys, $location, $http) {
+    $http.get('version.json').success(function(data) {
+        $scope.version = data;
+    });
+
     hotkeys.add({
         combo: 'ctrl+alt+h',
         description: 'Gå til startsiden',
