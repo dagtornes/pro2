@@ -94,6 +94,18 @@ angular.module('pro2app', [
     };
 })
 
+.filter('Address', function() {
+    return function(input, scope) {
+        if (input !== undefined) {
+            return input.street + ' ' +
+                input.number + input.subnum + ' ' +
+                input.postid;
+        } else {
+            return '';
+        }
+    };
+})
+
 .filter('CapEach', function() {
     return function(input, scope) {
         return input.replace(/\w\S*/g, function (word) {
