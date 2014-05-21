@@ -13,12 +13,37 @@
                 </p>
                 <p>
                     <small>Adresse:</small> 
-                    {{address.street}} {{address.number}}{{address.subnum}}
-                    {{address.postid}} 
+                    {{address | Address}}
                     <button type="button" class="btn btn-default btn-xs" ng-click="showAddressSelect(person)">Velg adresse</button>
                 </p>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Reiser</strong>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <small>Fra:</small>
+                    {{current_journey.departure_nested | Address}}
+                </p>
+                <p>
+                    <small>Til:</small>
+                    {{current_journey.destination_nested | Address}}
+                </p>
+            </div>
+            <table class="table table-condensed">
+                <tbody>
+                    <tr ng-repeat="journey in journeys"
+                        ng-click="set_current_journey($index)"
+                        class="{{get_class($index)}}">
+                        <td>{{journey.departure_nested | Address}}</td>
+                        <td>{{journey.destination_nested | Address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                        
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default" ng-click="prev(caze)" ng-if="caze.step > 1">
                 <span class="glyphicon glyphicon-chevron-left"></span>

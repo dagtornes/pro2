@@ -9,11 +9,34 @@ angular.module('case', [])
             $scope.next_step = (step < 3) ? Processes.byId(step + 1).name : undefined;
         }
 
+        $scope.print_address = function(address) {
+            if (address !== undefined) {
+                return address.street + ' ' +
+                    address.number + address.subnum + ' ' +
+                    address.postid;
+            } else {
+                return '';
+            }
+        };
+
+        $scope.current_journey = undefined;
+        $scope.current_journey_index = undefined;
+        $scope.set_current_journey = function(index) {
+            if (index >= 0 && index < $scope.journeys.length) {
+                $scope.current_journey = $scope.journeys[index];
+                $scope.current_journey_index = index;
+            }
+        };
+        $scope.get_class = function(index) {
+            return (index === $scope.current_journey_index) ? 'active' : '';
+        };
+
         Case.getCaseById($stateParams.caseId)
             .then(function(caze) {
                 $scope.caze = caze;
                 $scope.person = caze.person_nested;
                 $scope.address = caze.address_nested;
+                $scope.journeys = caze.journeys_nested;
                 setStepNames(caze.step, $scope);
                 $scope.next = function(caze) {
                     caze.step = Math.min(caze.step+1, 3);
