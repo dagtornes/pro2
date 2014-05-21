@@ -23,14 +23,21 @@
                 <strong>Reiser</strong>
             </div>
             <div class="panel-body">
-                <p>
-                    <small>Fra:</small>
-                    {{current_journey.departure_nested | Address}}
-                </p>
-                <p>
-                    <small>Til:</small>
-                    {{current_journey.destination_nested | Address}}
-                </p>
+                <div ng-if="current_journey !== undefined">
+                    <p>
+                        <small>Fra:</small>
+                        {{current_journey.departure_nested | Address}}
+                        <button type="button" class="btn btn-default btn-xs" ng-click="showJourneyAddressSelect(person, false)">Endre</button>
+                    </p>
+                    <p>
+                        <small>Til:</small>
+                        {{current_journey.destination_nested | Address}}
+                        <button type="button" class="btn btn-default btn-xs" ng-click="showJourneyAddressSelect(person, true)">Endre</button>
+                    </p>
+                </div>
+                <div ng-if="current_journey === undefined">
+                    <p>Velg en reise</p>
+                </div>
             </div>
             <table class="table table-condensed">
                 <tbody>
