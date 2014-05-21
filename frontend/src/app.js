@@ -6,6 +6,7 @@ angular.module('pro2app', [
     'caseControllers',
     'case',
     'caseServices',
+    'journeyServices',
     'navbarController',
     'Login'
 ])
