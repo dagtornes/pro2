@@ -13,6 +13,7 @@
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.1.0",
     "restangular": "~1.4.0",
     "lodash": "~2.4.1",
-    "angular-cookies": "~1.2.16"
+    "angular-cookies": "~1.2.16",
+    "sprintf": "~1.0.0"
   }
 }

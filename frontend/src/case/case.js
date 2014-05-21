@@ -9,16 +9,6 @@ angular.module('case', [])
             $scope.next_step = (step < 3) ? Processes.byId(step + 1).name : undefined;
         }
 
-        $scope.print_address = function(address) {
-            if (address !== undefined) {
-                return address.street + ' ' +
-                    address.number + address.subnum + ' ' +
-                    address.postid;
-            } else {
-                return '';
-            }
-        };
-
         $scope.current_journey = undefined;
         $scope.current_journey_index = undefined;
         $scope.set_current_journey = function(index) {
