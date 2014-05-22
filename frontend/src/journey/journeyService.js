@@ -4,32 +4,34 @@ angular.module('journeyServices', ['restangular'])
     function get(id) {
         var addr_p = $q.defer();
         Restangular.one('address', id).get().then(function (a) {
-            addr_p.resolve({
-                id: a.id,
-                number: a.number,
-                street: a.street,
-                subnum: a.subnum,
-                postid: a.postid
-            });
+            addr_p.resolve(_.pick(a, 'id', 'number', 'street', 'subnum', 'postid'));
         });
         return addr_p.promise;
     }
 
+    function getMany(ids) {
+        return $q.all(_.map(ids, function(id) {
+            get(id);
+        }));
+    }
+
     return {
-        get: get
+        get: get,
+        getMany: getMany
     };
 }])
 
 .factory('journeyService', ['Restangular', '$q', 'addressService',
         function(Restangular, $q, Addresses) {
     function get(id) {
-        var journey_p = $q.defer();
-        var journey = {};
+        var journey_p = $q.defer(),
+            journey = {};
+
         Restangular.one('journeys', id).get().then(function(j) {
             journey.id = j.id;
             return j;
         }).then(function (j) {
-            $q.all([Addresses.get(j.departure), Addresses.get(j.destination)])
+            Addresses.getMany([j.departure, j.destination])
             .then(function (addrs) {
                 journey.departure = addrs[0];
                 journey.destination = addrs[1];
@@ -40,10 +42,9 @@ angular.module('journeyServices', ['restangular'])
     }
 
     function getMore(ids) {
-        var journeys_p = $q.all(_.map(ids, function(id) {
+        return $q.all(_.map(ids, function(id) {
             return get(id);
-        }));
-        return journeys_p;
+        })).promise;
     }
 
     function create(journey) {
