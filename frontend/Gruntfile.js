@@ -6,6 +6,7 @@ module.exports = function(grunt) {
             deps: {
                 cwd: 'bower_components/',
                 src: [
+                  'sprintf/dist/sprintf.min.js',
                   'angular/angular.js',
                   'angular/angular.min.js',
                   'angular/angular.min.js.map',

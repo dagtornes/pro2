@@ -94,6 +94,17 @@ angular.module('pro2app', [
     };
 })
 
+.filter('Address', function() {
+    return function(input, scope) {
+        if (!!input) {
+            return sprintf("%s %s%s %s", input.street, input.number,
+                input.subnum, input.postid);
+        } else {
+            return '';
+        }
+    };
+})
+
 .filter('CapEach', function() {
     return function(input, scope) {
         return input.replace(/\w\S*/g, function (word) {
@@ -102,8 +113,12 @@ angular.module('pro2app', [
     };
 })
 
-.controller('AppController', ['$scope', '$cookies', 'hotkeys', '$location',
-        function($scope, $cookies, hotkeys, $location) {
+.controller('AppController', ['$scope', '$cookies', 'hotkeys', '$location', '$http',
+        function($scope, $cookies, hotkeys, $location, $http) {
+    $http.get('version.json').success(function(data) {
+        $scope.version = data;
+    });
+
     hotkeys.add({
         combo: 'ctrl+alt+h',
         description: 'Gå til startsiden',

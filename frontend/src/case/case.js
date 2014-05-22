@@ -9,11 +9,24 @@ angular.module('case', [])
             $scope.next_step = (step < 3) ? Processes.byId(step + 1).name : undefined;
         }
 
+        $scope.current_journey = undefined;
+        $scope.current_journey_index = undefined;
+        $scope.set_current_journey = function(index) {
+            if (index >= 0 && index < $scope.journeys.length) {
+                $scope.current_journey = $scope.journeys[index];
+                $scope.current_journey_index = index;
+            }
+        };
+        $scope.get_class = function(index) {
+            return (index === $scope.current_journey_index) ? 'active' : '';
+        };
+
         Case.getCaseById($stateParams.caseId)
             .then(function(caze) {
                 $scope.caze = caze;
                 $scope.person = caze.person_nested;
                 $scope.address = caze.address_nested;
+                $scope.journeys = caze.journeys_nested;
                 setStepNames(caze.step, $scope);
                 $scope.next = function(caze) {
                     caze.step = Math.min(caze.step+1, 3);
@@ -47,6 +60,36 @@ angular.module('case', [])
             });
         };
 
+        $scope.showJourneyAddressSelect = function (person, isDest) {
+            if (person !== undefined) {
+                $modal.open({
+                    templateUrl: 'address/select_address.html',
+                    controller: 'SelectAddressController',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        data: function() {
+                            return {
+                                addresses: person.address_nested,
+                                address: {}
+                            };
+                        }
+                    }
+                }).result.then(function (address) {
+                    var patch = isDest ? {destination: address.id} 
+                            : {departure: address.id};
+                    Restangular.one('journeys', $scope.current_journey.id).patch(patch)
+                        .then(function(journey) {
+                        $scope.journeys.splice($scope.current_journey_index, 1,
+                            journey);
+                        $scope.current_journey = journey;
+                    }, function (error) {
+                        $scope.addAlert(error.data.detail);
+                    });
+                });
+            }
+        };
+
         $scope.showAddressSelect = function (person) {
             if (person !== undefined) {
                 $modal.open({
@@ -55,11 +98,15 @@ angular.module('case', [])
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        person: function() {
-                            return person;
+                        data: function() {
+                            return {
+                                addresses: person.address_nested,
+                                address: {person: person.id}
+                            };
                         }
                     }
                 }).result.then(function (address) {
+                    address.person = person.id;
                     $scope.caze.patch({address: address.id}).then(function(caze) {
                         $scope.caze = caze;
                         $scope.address = caze.address_nested;

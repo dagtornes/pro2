@@ -1,10 +1,10 @@
 angular.module('SelectAddress', ['restangular'])
 
-.controller('SelectAddressController', ['$scope', '$modalInstance', 'person', 'Restangular',
-        function($scope, $modalInstance, person, Restangular) {
+.controller('SelectAddressController', ['$scope', '$modalInstance', 'data', 'Restangular',
+        function($scope, $modalInstance, data, Restangular) {
 
-    $scope.addresses = person.address_nested;
-    $scope.address = {person: person.id};
+    $scope.addresses = data.addresses;
+    $scope.address = data.address;
     $scope.showCreate = false;
 
     $scope.setAddress = function (address) {

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation" ng-controller="navbarController">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
                 <span class="sr-only">Toggle navigation</span>
@@ -11,7 +11,11 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapsible">
             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text"><small>1.2.3 git-sha</small></p></li>
+                <li>
+                    <p class="navbar-text">
+                        <small>{{version.version}} {{version.revision}}</small>
+                    </p>
+                </li>
                 <li><a href="#/case" tabindex="-1"><span class="glyphicon glyphicon-search" /> Saker</a></li>
                 <li><a href="#/menu" tabindex="-1"><span class="glyphicon glyphicon-home" /> Startside</a></li>
                 <!-- Has user -->
